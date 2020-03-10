@@ -1,5 +1,6 @@
 package homeworks.homeworkTS;
 
+import org.hamcrest.CoreMatchers;
 import org.junit.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -27,17 +28,10 @@ public class SearchTest {
 
     @Before
     public void setUp() {
-//        driver.findElement(By.className("login")).click();
-//        driver.findElement(By.id("email")).clear();
-//        driver.findElement(By.id("email")).sendKeys("khbereg@gmail.com");
-//        driver.findElement(By.id("passwd")).clear();
-//        driver.findElement(By.id("passwd")).sendKeys("12345");
-//        driver.findElement(By.id("SubmitLogin")).click();
     }
 
     @After
     public void tearDown() {
-        //driver.findElement(By.className("logout")).click();
     }
 
     @AfterClass
@@ -46,16 +40,60 @@ public class SearchTest {
     }
 
     @Test(timeout = 5000l)
-    public void verifyFirstTipIsCorrect_viaAssertTrue() {
+    public void verifyFirstTipIsCorrect() {
         driver.findElement(By.id("search_query_top"))
                 .clear();
         driver.findElement(By.id("search_query_top"))
-                .sendKeys("Dress");
+                .sendKeys("Printed Summer Dress");
 
-        Assert.assertTrue("First tip text was wrong",
-                driver.findElement(By.xpath("//*[@id=\"index\"]/div[2]/ul/li[1]"))
-                        .getText().contains("Dress"));
+        Assert.assertThat(
+                driver
+                        .findElement(By.xpath("//*[@id=\"index\"]/div[2]/ul/li[1]"))
+                        .getText(),
+                CoreMatchers.containsString("Printed Summer Dress"));
     }
+
+
+    @Test
+    public void isElementPresent(){
+        driver.findElement(By.id("search_query_top"))
+                .clear();
+        driver.findElement(By.id("search_query_top"))
+                .sendKeys("Printed Summer Dress");
+
+        for (int i = 1; i < 5; i++) {
+            Boolean isPresent = driver.findElements(By.xpath("//*[@id=\"index\"]/div[2]/ul/li[" + i + "]")).size() > 0;
+            System.out.println(isPresent);
+        }
+
+    }
+
+
+
+
+
+/*    @Test
+    public boolean isElementPresent() {
+
+        driver.findElement(By.id("search_query_top"))
+                .clear();
+        driver.findElement(By.id("search_query_top"))
+                .sendKeys("Printed Summer Dress");
+
+
+        try {
+            driver.findElement(By.xpath("/*//*[@id=\"index\"]/div[2]/ul/li[1]"));
+            return true;
+        } catch (org.openqa.selenium.NoSuchElementException e) {
+            return false;
+        }
+
+    }*/
+
+/*    public boolean isElementVisible(String cssLocator) {
+        return driver.findElement(By.cssSelector(cssLocator)).isDisplayed();
+    }*/
+
 
 }
 
