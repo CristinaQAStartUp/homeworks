@@ -39,6 +39,20 @@ public class SearchTest {
         driver.quit();
     }
 
+
+    @Test
+    public void quantityOfTips() {
+        driver.findElement(By.id("search_query_top"))
+                .clear();
+        driver.findElement(By.id("search_query_top"))
+                .sendKeys("Printed Summer Dress");
+
+        int isPresent = driver.findElements(By.xpath("//*[@id=\"index\"]/div[2]/ul/li")).size();
+
+        Assert.assertTrue(isPresent == 3);
+
+    }
+
     @Test(timeout = 5000l)
     public void verifyFirstTipIsCorrect() {
         driver.findElement(By.id("search_query_top"))
@@ -52,48 +66,3 @@ public class SearchTest {
                         .getText(),
                 CoreMatchers.containsString("Printed Summer Dress"));
     }
-
-
-    @Test
-    public void isElementPresent(){
-        driver.findElement(By.id("search_query_top"))
-                .clear();
-        driver.findElement(By.id("search_query_top"))
-                .sendKeys("Printed Summer Dress");
-
-        for (int i = 1; i < 5; i++) {
-            Boolean isPresent = driver.findElements(By.xpath("//*[@id=\"index\"]/div[2]/ul/li[" + i + "]")).size() > 0;
-            System.out.println(isPresent);
-        }
-
-    }
-
-
-
-
-
-/*    @Test
-    public boolean isElementPresent() {
-
-        driver.findElement(By.id("search_query_top"))
-                .clear();
-        driver.findElement(By.id("search_query_top"))
-                .sendKeys("Printed Summer Dress");
-
-
-        try {
-            driver.findElement(By.xpath("/*//*[@id=\"index\"]/div[2]/ul/li[1]"));
-            return true;
-        } catch (org.openqa.selenium.NoSuchElementException e) {
-            return false;
-        }
-
-    }*/
-
-/*    public boolean isElementVisible(String cssLocator) {
-        return driver.findElement(By.cssSelector(cssLocator)).isDisplayed();
-    }*/
-
-
-}
-
