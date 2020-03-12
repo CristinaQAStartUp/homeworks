@@ -66,3 +66,4 @@ public class SearchTest {
                         .getText(),
                 CoreMatchers.containsString("Printed Summer Dress"));
     }
+}
